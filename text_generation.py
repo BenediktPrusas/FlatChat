@@ -15,11 +15,11 @@ def init_open_ai()-> None:
         # Read OPENAI_KEY from secrets.toml
         config = configparser.ConfigParser()
         config.read('.streamlit/secrets.toml')
-        key = config.get('DEFAULT', 'OPENAI_KEY')
+        key = config.get('DEFAULT', 'OPENAI_KEY').strip('"')
         openai.api_key = key
     else:
         # Use Streamlit secrets if secrets.toml does not exist
-        openai.api_key = st.secrets["DEFAULT"]["OPENAI_KEY"]
+        openai.api_key = st.secrets["DEFAULT"]["OPENAI_KEY"].strip('"')
 
 
 def generate_intro(flat_description: str, personal_info: str, base_prompt: str, model: str = "gpt-3.5-turbo") -> str:
